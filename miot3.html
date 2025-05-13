@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video and GeoGebra Embed</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: black;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #video-container {
+      height: 70vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: black;
+    }
+
+    #video-container iframe {
+      width: 90vw;
+      height: 100%;
+      border: none;
+    }
+
+    #geogebra-container {
+      height: 30vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: white;
+      padding: 10px;
+    }
+
+    #geogebra-container iframe {
+      width: 90vw;
+      height: 100%;
+      border: 1px solid #e4e4e4;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="video-container">
+    <iframe 
+      src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=1&rel=0&showinfo=0" 
+      allow="autoplay; encrypted-media" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div id="geogebra-container">
+    <iframe 
+      src="https://www.geogebra.org/calculator/rzrdhsn6?embed" 
+      allowfullscreen 
+      frameborder="0">
+    </iframe>
+  </div>
+
+</body>
+</html>
