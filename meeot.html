@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>"Just" a graph</title>
+  <title>"Just" a video</title>
+  <link rel="icon" type="image/png" href="image1.png">
+
   <style>
     html, body {
       margin: 0;
@@ -14,6 +16,7 @@
       flex-direction: column;
     }
 
+    /* Video container */
     #video-container {
       height: 65vh;
       display: flex;
@@ -28,9 +31,10 @@
       width: 90vw;
       height: 100%;
       border: none;
-      pointer-events: none; /* disables interaction like pause/seek */
+      pointer-events: none; /* disable pause/seek */
     }
 
+    /* Unmute button */
     #unmute-overlay {
       position: absolute;
       top: 0;
@@ -54,6 +58,7 @@
       cursor: pointer;
     }
 
+    /* GeoGebra */
     #geogebra-container {
       height: 35vh;
       max-height: 100vh;
@@ -71,10 +76,46 @@
       border: 1px solid #e4e4e4;
       border-radius: 4px;
     }
+
+    /* Popup styles */
+    #popup {
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 300px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      z-index: 999;
+      overflow: hidden;
+    }
+
+    #popup img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #popup-close {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      color: red;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1000;
+      background: white;
+      border-radius: 50%;
+      padding: 0 6px;
+    }
   </style>
 </head>
 <body>
 
+  <!-- Video Section -->
   <div id="video-container">
     <div id="player"></div>
     <div id="unmute-overlay">
@@ -82,6 +123,7 @@
     </div>
   </div>
 
+  <!-- GeoGebra Section -->
   <div id="geogebra-container">
     <iframe 
       src="https://www.geogebra.org/calculator/rzrdhsn6?embed" 
@@ -90,10 +132,17 @@
     </iframe>
   </div>
 
+  <!-- Popup Box -->
+  <div id="popup">
+    <div id="popup-close" onclick="closePopup()">✕</div>
+    <img src="image2.png" alt="Popup Image">
+  </div>
+
+  <!-- YouTube API and JS -->
   <script>
     let player;
 
-    // YouTube IFrame API loader
+    // Load YouTube IFrame API
     const tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     document.body.appendChild(tag);
@@ -102,7 +151,7 @@
       player = new YT.Player('player', {
         height: '100%',
         width: '100%',
-        videoId: 'ooooooooooo', // Replace with your video ID
+        videoId: 'dQw4w9WgXcQ',
         playerVars: {
           autoplay: 1,
           mute: 1,
@@ -132,11 +181,14 @@
     }
 
     function onPlayerStateChange(event) {
-      // 0 = ended
       if (event.data === YT.PlayerState.ENDED) {
         document.getElementById('video-container').style.height = '0vh';
         document.getElementById('geogebra-container').style.height = '100vh';
       }
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
     }
   </script>
 
