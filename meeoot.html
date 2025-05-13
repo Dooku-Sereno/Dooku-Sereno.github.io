@@ -40,6 +40,7 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      display: none;
     }
 
     #geogebra-container {
@@ -71,9 +72,12 @@
 
   <script>
     let player;
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    // Load YouTube IFrame API
+    // Detect Mobile Chrome or Android WebView
+    const ua = navigator.userAgent;
+    const isMobileChrome = /Android.*Chrome\/[.0-9]* Mobile/.test(ua) ||
+                            /Android.*wv/.test(ua); // WebView (e.g. in apps)
+    
     const tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     document.body.appendChild(tag);
@@ -82,10 +86,10 @@
       player = new YT.Player('player', {
         height: '100%',
         width: '100%',
-        videoId: 'dQw4w9WgXcQ', // replace with your video ID
+        videoId: 'dQw4w9WgXcQ', // Replace with your actual YouTube ID
         playerVars: {
-          autoplay: isMobile ? 0 : 1,
-          mute: isMobile ? 0 : 1,
+          autoplay: isMobileChrome ? 0 : 1,
+          mute: isMobileChrome ? 0 : 1,
           controls: 1,
           rel: 0,
           modestbranding: 1,
@@ -93,19 +97,17 @@
         },
         events: {
           onReady: (event) => {
-            if (!isMobile) {
-              event.target.playVideo(); // desktop autoplay
+            if (!isMobileChrome) {
+              event.target.playVideo();
             }
           }
         }
       });
 
-      // show or hide the Start button depending on device
-      if (isMobile) {
+      if (isMobileChrome) {
         document.getElementById('start-button').style.display = 'block';
       } else {
         document.getElementById('player').style.display = 'block';
-        document.getElementById('start-button').style.display = 'none';
       }
     }
 
@@ -114,7 +116,7 @@
       document.getElementById('player').style.display = 'block';
       if (player) {
         player.playVideo();
-        player.unMute(); // allowed because user clicked
+        player.unMute(); // OK after user tap
       }
     }
   </script>
