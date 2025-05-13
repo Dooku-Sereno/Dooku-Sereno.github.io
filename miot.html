@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Autoplay with Audio (User-Click)</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: black;
+      font-family: sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #video-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    iframe {
+      width: 90vw;
+      height: 90vh;
+      border: none;
+    }
+
+    #unmute-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 90vw;
+      height: 90vh;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    #unmute-overlay button {
+      padding: 16px 32px;
+      font-size: 1.5em;
+      background: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+    }
+
+    #footer-link {
+      height: 10vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #footer-link a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      background-color: #333;
+      padding: 10px 20px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="video-container">
+    <div id="player"></div>
+    <div id="unmute-overlay">
+      <button onclick="unmute()">Click to Unmute</button>
+    </div>
+  </div>
+
+  <div id="footer-link">
+    <a href="https://www.geogebra.org/calculator/rzrdhsn6" target="_blank">Look at the graph</a>
+  </div>
+
+  <script>
+    let player;
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '90%',
+        width: '90%',
+        videoId: 'dQw4w9WgXcQ',
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 1,
+          rel: 0,
+          showinfo: 0
+        },
+        events: {
+          'onReady': function (event) {
+            event.target.playVideo();
+          }
+        }
+      });
+    }
+
+    function unmute() {
+      player.unMute();
+      document.getElementById('unmute-overlay').style.display = 'none';
+    }
+
+    // Load YouTube Iframe API
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.body.appendChild(tag);
+  </script>
+
+</body>
+</html>
